@@ -37,6 +37,12 @@ h3{font-size:12px;color:var(--muted);margin:0 0 8px;font-weight:600;letter-spaci
 .track{background:var(--code);border-radius:6px;height:16px}
 .fill{background:var(--bar);height:100%;border-radius:6px}
 .bar-row .v{font-variant-numeric:tabular-nums;color:var(--muted);direction:ltr}
+.donut{display:flex;align-items:center;gap:18px}
+.donut svg{width:150px;flex:none}
+.legend{display:grid;gap:7px;font-size:13px;min-width:150px}
+.lg{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center}
+.lg i{width:12px;height:12px;border-radius:3px}
+.lg .v{font-variant-numeric:tabular-nums;color:var(--muted);direction:ltr}
 .tablewrap{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:10px}
 table{border-collapse:collapse;width:100%;font-size:13px}
 th{position:sticky;top:0;background:var(--code);text-align:start;padding:7px 10px;font-weight:600;white-space:nowrap}
@@ -92,10 +98,14 @@ function line(c){const W=480,H=230,p=34,v=c.values,max=Math.max(...v)*1.1,min=0,
   v.map((a,i)=>`<circle cx="${x(i)}" cy="${y(a)}" r="3.5" fill="#0b6e6e"/>`).join("")+
   c.labels.map((l,i)=>i%2===0?`<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="13" fill="#5b6675">${esc(l.slice(2))}</text>`:"").join("")+
   `<text x="${p}" y="12" font-size="13" fill="#5b6675">${num(Math.round(max/1.1))}</text></svg>`;}
+function donut(c){const tot=c.values.reduce((a,b)=>a+Math.abs(b),0)||1,R=62,C=2*Math.PI*R,big=c.values.indexOf(Math.max(...c.values)),sh=["#0b6e6e","#4a9a98","#8fc2c0","#c6dedd","#e4dfd3"];let off=0;
+ const arcs=c.values.map((a,i)=>{const d=Math.abs(a)/tot*C,o=off;off+=d;return `<circle cx="80" cy="80" r="${R}" fill="none" stroke="${i===big?"#F07A1F":sh[i%sh.length]}" stroke-width="26" stroke-dasharray="${d} ${C-d}" stroke-dashoffset="${-o}" transform="rotate(-90 80 80)"/>`}).join("");
+ const leg=c.labels.map((l,i)=>`<div class="lg"><i style="background:${i===big?"#F07A1F":sh[i%sh.length]}"></i><span class="l">${esc(l)}</span><span class="v">${Math.round(Math.abs(c.values[i])/tot*100)}%</span></div>`).join("");
+ return `<div class="donut"><svg viewBox="0 0 160 160" role="img">${arcs}<text x="80" y="86" text-anchor="middle" font-size="18" font-weight="600" fill="#1d2a3a" direction="ltr">${num(Math.round(tot))}</text></svg><div class="legend">${leg}</div></div>`;}
 function card(r){const t=S[L],rtl=r.language==="ar",lbl=c=>rtl&&COL_AR[c]?COL_AR[c]:c;
  if(r.error)return `<div class="card" dir="${rtl?"rtl":"ltr"}"><div class="q">${esc(r.question)}</div><div class="err">${esc(r.error)}</div></div>`;
  const tbl=`<div class="tablewrap"><table><thead><tr>${r.columns.map(c=>`<th>${esc(lbl(c))}</th>`).join("")}</tr></thead><tbody>${r.rows.map(row=>`<tr>${row.map(v=>`<td class="${typeof v==="number"?"n":""}">${num(v)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
- const ch=r.chart?(r.chart.type==="line"?line(r.chart):bars(r.chart)):"";
+ const ch=r.chart?({line,donut}[r.chart.type]||bars)(r.chart):"";
  const sql=esc(r.sql).replace(kw,'<span class="k">$1</span>');
  return `<div class="card" dir="${rtl?"rtl":"ltr"}"><div class="q">${esc(r.question)}</div><p class="ans">${esc(r.answer)}</p>
  <div class="cols ${ch?"":"one"}">${ch?`<div><h3>${rtl?S.ar.chart:S.en.chart}</h3>${ch}</div>`:""}<div><h3>${rtl?S.ar.table:S.en.table}</h3>${tbl}</div></div>

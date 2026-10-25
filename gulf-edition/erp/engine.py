@@ -131,7 +131,7 @@ FROM receivables_ageing a {FX.format(t='a')} WHERE 1 = 1 {cond(p, 'a.currency')}
        lambda r, p: (lambda tot, late: (f"Outstanding receivables are {mon(tot, p)}; {late / tot:.0%} is more than 60 days overdue.",
                                         f"إجمالي الذمم المدينة {mon(tot, p)}، منها {late / tot:.0%} متأخر أكثر من 60 يوماً."))(
            sum(x[2] for x in r) or 1, sum(x[2] for x in r if x[0] in ("61-90", "90+", "61-90")) ),
-       chart=("bucket", None), showcase=("Show the receivables ageing", "اعرض أعمار الديون"))
+       chart=("bucket", None, "donut"), showcase=("Show the receivables ageing", "اعرض أعمار الديون"))
 
 intent("overdue_invoices", ["overdue invoices", "late invoices", "past due", "unpaid invoices", "overdue"],
        ["فواتير متاخره", "فواتير مستحقه", "فواتير غير مسدده", "فواتير لم تسدد", "فواتير غير مدفوعه", "متاخرات", "متاخره"],
@@ -336,6 +336,8 @@ def pick_chart(cols, rows, hint=None):
     val = num[-1]
     rr = rows[:15]
     kind = "line" if all(re.match(r"^\d{4}-\d{2}$", str(r[lab])) for r in rr) else "bar"
+    if hint and len(hint) > 2:
+        kind = hint[2]
     return {"type": kind, "label": cols[lab], "value": cols[val], "labels": [str(r[lab]) for r in rr], "values": [r[val] for r in rr]}
 
 
