@@ -1,0 +1,55 @@
+customer_id,name_en,name_ar,country,city,currency,segment,payment_terms_days,credit_limit
+1,Noble Caravan Engineering,القافلة النبيلة للهندسة,Kuwait,Kuwait City,KWD,Enterprise,60,76923.077
+2,Desert Rose Facilities Services,وردة الصحراء لخدمات المرافق,Qatar,Al Wakrah,QAR,Small,60,72806.7
+3,Oasis Crown Electromechanical,تاج الواحة للأعمال الكهروميكانيكية,Saudi Arabia,Dammam,SAR,Mid-market,30,299962.5
+4,Noble Caravan Industrial Supplies,القافلة النبيلة للتوريدات الصناعية,Kuwait,Hawalli,KWD,Mid-market,30,24615.385
+5,Windward Palm Electromechanical,نخلة الريح للأعمال الكهروميكانيكية,Qatar,Lusail,QAR,Enterprise,45,910083.73
+6,Mirage Pier Engineering,رصيف السراب للهندسة,Saudi Arabia,Riyadh,SAR,Small,30,74990.63
+7,Hazel Minaret Industrial Supplies,منارة البندق للتوريدات الصناعية,Kuwait,Hawalli,KWD,Mid-market,45,24615.385
+8,Mirage Pier Facilities Services,رصيف السراب لخدمات المرافق,Qatar,Lusail,QAR,Enterprise,45,910083.73
+9,Dawn Caravel Electromechanical,كارافيل الفجر للأعمال الكهروميكانيكية,Saudi Arabia,Dammam,SAR,Enterprise,60,937382.83
+10,Zephyr Court Contracting,ساحة النسيم للمقاولات,Kuwait,Salmiya,KWD,Small,45,6153.846
+11,Sand Lantern Engineering,فانوس الرمل للهندسة,Qatar,Al Wakrah,QAR,Small,60,72806.7
+12,Falcon Ridge Industrial Supplies,قمة الصقر للتوريدات الصناعية,Saudi Arabia,Riyadh,SAR,Small,30,74990.63
+13,Pearl Coast Electromechanical,ساحل اللؤلؤ للأعمال الكهروميكانيكية,Kuwait,Hawalli,KWD,Small,30,6153.846
+14,Coral Bay Electromechanical,خليج المرجان للأعمال الكهروميكانيكية,Qatar,Lusail,QAR,Small,45,72806.7
+15,Windward Palm Facilities Services,نخلة الريح لخدمات المرافق,Saudi Arabia,Dammam,SAR,Enterprise,60,937382.83
+16,Ivory Harbor Electromechanical,ميناء العاج للأعمال الكهروميكانيكية,Kuwait,Kuwait City,KWD,Small,30,6153.846
+17,Falcon Ridge Engineering,قمة الصقر للهندسة,Qatar,Al Wakrah,QAR,Enterprise,45,910083.73
+18,Blue Dhow Trading Co.,الداو الأزرق للتجارة,Saudi Arabia,Jeddah,SAR,Small,45,74990.63
+19,Mirage Pier Trading Co.,رصيف السراب للتجارة,Kuwait,Hawalli,KWD,Enterprise,45,76923.077
+20,Dawn Caravel Contracting,كارافيل الفجر للمقاولات,Qatar,Al Wakrah,QAR,Small,45,72806.7
+21,Falcon Ridge Contracting,قمة الصقر للمقاولات,Saudi Arabia,Riyadh,SAR,Mid-market,45,299962.5
+22,Mirage Pier Contracting,رصيف السراب للمقاولات,Kuwait,Kuwait City,KWD,Mid-market,45,24615.385
+23,Opal Fortress Electromechanical,قلعة الأوبال للأعمال الكهروميكانيكية,Qatar,Al Wakrah,QAR,Mid-market,30,291226.79
+24,Citadel Pearl Electromechanical,لؤلؤة القلعة للأعمال الكهروميكانيكية,Saudi Arabia,Riyadh,SAR,Mid-market,60,299962.5
+25,Coral Bay Engineering,خليج المرجان للهندسة,Kuwait,Hawalli,KWD,Mid-market,30,24615.385
+26,Date Grove Electromechanical,بستان التمر للأعمال الكهروميكانيكية,Qatar,Doha,QAR,Mid-market,60,291226.79
+27,Palm Terrace Engineering,شرفة النخيل للهندسة,Saudi Arabia,Dammam,SAR,Small,60,74990.63
+28,Coral Bay Industrial Supplies,خليج المرجان للتوريدات الصناعية,Kuwait,Hawalli,KWD,Mid-market,60,24615.385
+29,Starlit Souq Electromechanical,سوق النجوم للأعمال الكهروميكانيكية,Qatar,Doha,QAR,Enterprise,45,910083.73
+30,Citadel Pearl Trading Co.,لؤلؤة القلعة للتجارة,Saudi Arabia,Riyadh,SAR,Enterprise,60,937382.83
+31,Lotus Bastion Trading Co.,حصن اللوتس للتجارة,Kuwait,Salmiya,KWD,Small,30,6153.846
+32,Oasis Crown Contracting,تاج الواحة للمقاولات,Qatar,Lusail,QAR,Mid-market,45,291226.79
+33,Falcon Ridge Facilities Services,قمة الصقر لخدمات المرافق,Saudi Arabia,Riyadh,SAR,Mid-market,45,299962.5
+34,Hazel Minaret Trading Co.,منارة البندق للتجارة,Kuwait,Hawalli,KWD,Enterprise,45,76923.077
+35,Palm Terrace Trading Co.,شرفة النخيل للتجارة,Qatar,Doha,QAR,Enterprise,30,910083.73
+36,Opal Fortress Trading Co.,قلعة الأوبال للتجارة,Saudi Arabia,Dammam,SAR,Enterprise,60,937382.83
+37,Sable Oryx Industrial Supplies,المها الأسود للتوريدات الصناعية,Kuwait,Hawalli,KWD,Small,45,6153.846
+38,Copper Mesa Facilities Services,هضبة النحاس لخدمات المرافق,Qatar,Lusail,QAR,Small,60,72806.7
+39,Palm Terrace Electromechanical,شرفة النخيل للأعمال الكهروميكانيكية,Saudi Arabia,Dammam,SAR,Small,45,74990.63
+40,Saffron Gate Electromechanical,بوابة الزعفران للأعمال الكهروميكانيكية,Kuwait,Kuwait City,KWD,Mid-market,60,24615.385
+41,Hazel Minaret Electromechanical,منارة البندق للأعمال الكهروميكانيكية,Qatar,Al Wakrah,QAR,Small,60,72806.7
+42,Date Grove Engineering,بستان التمر للهندسة,Saudi Arabia,Riyadh,SAR,Small,45,74990.63
+43,Falcon Ridge Electromechanical,قمة الصقر للأعمال الكهروميكانيكية,Kuwait,Hawalli,KWD,Mid-market,30,24615.385
+44,Silver Tide Trading Co.,المد الفضي للتجارة,Qatar,Al Wakrah,QAR,Mid-market,30,291226.79
+45,Granite Wave Trading Co.,موجة الغرانيت للتجارة,Saudi Arabia,Dammam,SAR,Mid-market,30,299962.5
+46,Saffron Gate Trading Co.,بوابة الزعفران للتجارة,Kuwait,Salmiya,KWD,Enterprise,30,76923.077
+47,Oasis Crown Facilities Services,تاج الواحة لخدمات المرافق,Qatar,Doha,QAR,Enterprise,30,910083.73
+48,Oasis Crown Engineering,تاج الواحة للهندسة,Saudi Arabia,Dammam,SAR,Mid-market,60,299962.5
+49,Noble Caravan Facilities Services,القافلة النبيلة لخدمات المرافق,Kuwait,Salmiya,KWD,Mid-market,45,24615.385
+50,Mirage Pier Industrial Supplies,رصيف السراب للتوريدات الصناعية,Qatar,Doha,QAR,Mid-market,45,291226.79
+51,Gulf Horizon Facilities Services,أفق الخليج لخدمات المرافق,Saudi Arabia,Riyadh,SAR,Small,30,74990.63
+52,Tamarind Cove Industrial Supplies,خليج التمر هندي للتوريدات الصناعية,Kuwait,Salmiya,KWD,Small,60,6153.846
+53,Lotus Bastion Contracting,حصن اللوتس للمقاولات,Qatar,Doha,QAR,Small,30,72806.7
+54,Zephyr Court Electromechanical,ساحة النسيم للأعمال الكهروميكانيكية,Saudi Arabia,Jeddah,SAR,Mid-market,45,299962.5

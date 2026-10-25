@@ -1,0 +1,288 @@
+{
+    "scenario": "gulf_erp",
+    "name": "Gulf ERP",
+    "description": "Gulf distributor ERP: stock, invoices, purchase orders and receivables (KWD, QAR, SAR)",
+    "tables": {
+        "customers": {
+            "columns": [
+                "customer_id",
+                "name_en",
+                "name_ar",
+                "country",
+                "city",
+                "currency",
+                "segment",
+                "payment_terms_days",
+                "credit_limit"
+            ],
+            "types": {
+                "customer_id": "BigInt",
+                "name_en": "String",
+                "name_ar": "String",
+                "country": "String",
+                "city": "String",
+                "currency": "String",
+                "segment": "String",
+                "payment_terms_days": "BigInt",
+                "credit_limit": "Float"
+            },
+            "key": "customer_id",
+            "source_table": "customers"
+        },
+        "fx_rates": {
+            "columns": [
+                "currency",
+                "usd_per_unit"
+            ],
+            "types": {
+                "currency": "String",
+                "usd_per_unit": "Float"
+            },
+            "key": "currency",
+            "source_table": "fx_rates"
+        },
+        "invoice_lines": {
+            "columns": [
+                "line_id",
+                "invoice_id",
+                "item_id",
+                "qty",
+                "unit_price",
+                "line_total"
+            ],
+            "types": {
+                "line_id": "BigInt",
+                "invoice_id": "BigInt",
+                "item_id": "BigInt",
+                "qty": "BigInt",
+                "unit_price": "Float",
+                "line_total": "Float"
+            },
+            "key": "line_id",
+            "source_table": "invoice_lines"
+        },
+        "invoices": {
+            "columns": [
+                "invoice_id",
+                "invoice_no",
+                "customer_id",
+                "invoice_date",
+                "due_date",
+                "currency",
+                "total_amount",
+                "paid_amount",
+                "status"
+            ],
+            "types": {
+                "invoice_id": "BigInt",
+                "invoice_no": "String",
+                "customer_id": "BigInt",
+                "invoice_date": "Date",
+                "due_date": "Date",
+                "currency": "String",
+                "total_amount": "Float",
+                "paid_amount": "Float",
+                "status": "String"
+            },
+            "key": "invoice_id",
+            "source_table": "invoices"
+        },
+        "items": {
+            "columns": [
+                "item_id",
+                "sku",
+                "name_en",
+                "name_ar",
+                "category",
+                "category_ar",
+                "unit_cost_usd",
+                "list_price_usd",
+                "reorder_level"
+            ],
+            "types": {
+                "item_id": "BigInt",
+                "sku": "String",
+                "name_en": "String",
+                "name_ar": "String",
+                "category": "String",
+                "category_ar": "String",
+                "unit_cost_usd": "Float",
+                "list_price_usd": "Float",
+                "reorder_level": "BigInt"
+            },
+            "key": "item_id",
+            "source_table": "items"
+        },
+        "po_lines": {
+            "columns": [
+                "po_line_id",
+                "po_id",
+                "item_id",
+                "qty",
+                "unit_cost"
+            ],
+            "types": {
+                "po_line_id": "BigInt",
+                "po_id": "BigInt",
+                "item_id": "BigInt",
+                "qty": "BigInt",
+                "unit_cost": "Float"
+            },
+            "key": "po_line_id",
+            "source_table": "po_lines"
+        },
+        "purchase_orders": {
+            "columns": [
+                "po_id",
+                "po_no",
+                "supplier_id",
+                "order_date",
+                "expected_date",
+                "currency",
+                "total_amount",
+                "status"
+            ],
+            "types": {
+                "po_id": "BigInt",
+                "po_no": "String",
+                "supplier_id": "BigInt",
+                "order_date": "Date",
+                "expected_date": "Date",
+                "currency": "String",
+                "total_amount": "Float",
+                "status": "String"
+            },
+            "key": "po_id",
+            "source_table": "purchase_orders"
+        },
+        "stock_levels": {
+            "columns": [
+                "warehouse_id",
+                "item_id",
+                "qty_on_hand"
+            ],
+            "types": {
+                "warehouse_id": "BigInt",
+                "item_id": "BigInt",
+                "qty_on_hand": "BigInt"
+            },
+            "key": "warehouse_id",
+            "source_table": "stock_levels"
+        },
+        "suppliers": {
+            "columns": [
+                "supplier_id",
+                "name_en",
+                "name_ar",
+                "country",
+                "currency"
+            ],
+            "types": {
+                "supplier_id": "BigInt",
+                "name_en": "String",
+                "name_ar": "String",
+                "country": "String",
+                "currency": "String"
+            },
+            "key": "supplier_id",
+            "source_table": "suppliers"
+        },
+        "warehouses": {
+            "columns": [
+                "warehouse_id",
+                "name_en",
+                "name_ar",
+                "country",
+                "city"
+            ],
+            "types": {
+                "warehouse_id": "BigInt",
+                "name_en": "String",
+                "name_ar": "String",
+                "country": "String",
+                "city": "String"
+            },
+            "key": "warehouse_id",
+            "source_table": "warehouses"
+        }
+    },
+    "relationships": [
+        {
+            "name": "customers_to_fx_rates",
+            "from": "customers",
+            "to": "fx_rates",
+            "fromKey": "currency",
+            "toKey": "currency"
+        },
+        {
+            "name": "invoice_lines_to_invoices",
+            "from": "invoice_lines",
+            "to": "invoices",
+            "fromKey": "invoice_id",
+            "toKey": "invoice_id"
+        },
+        {
+            "name": "invoice_lines_to_items",
+            "from": "invoice_lines",
+            "to": "items",
+            "fromKey": "item_id",
+            "toKey": "item_id"
+        },
+        {
+            "name": "invoices_to_customers",
+            "from": "invoices",
+            "to": "customers",
+            "fromKey": "customer_id",
+            "toKey": "customer_id"
+        },
+        {
+            "name": "invoices_to_fx_rates",
+            "from": "invoices",
+            "to": "fx_rates",
+            "fromKey": "currency",
+            "toKey": "currency"
+        },
+        {
+            "name": "po_lines_to_purchase_orders",
+            "from": "po_lines",
+            "to": "purchase_orders",
+            "fromKey": "po_id",
+            "toKey": "po_id"
+        },
+        {
+            "name": "po_lines_to_items",
+            "from": "po_lines",
+            "to": "items",
+            "fromKey": "item_id",
+            "toKey": "item_id"
+        },
+        {
+            "name": "purchase_orders_to_suppliers",
+            "from": "purchase_orders",
+            "to": "suppliers",
+            "fromKey": "supplier_id",
+            "toKey": "supplier_id"
+        },
+        {
+            "name": "purchase_orders_to_fx_rates",
+            "from": "purchase_orders",
+            "to": "fx_rates",
+            "fromKey": "currency",
+            "toKey": "currency"
+        },
+        {
+            "name": "stock_levels_to_items",
+            "from": "stock_levels",
+            "to": "items",
+            "fromKey": "item_id",
+            "toKey": "item_id"
+        },
+        {
+            "name": "suppliers_to_fx_rates",
+            "from": "suppliers",
+            "to": "fx_rates",
+            "fromKey": "currency",
+            "toKey": "currency"
+        }
+    ]
+}

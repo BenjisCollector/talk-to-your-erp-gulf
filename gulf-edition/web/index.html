@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talk to your ERP</title>
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1d2a3a;--muted:#5b6675;--line:#e4dfd3;--accent:#0b6e6e;--accent-soft:#e3f1f0;--warn:#8a5a00;--warn-soft:#fff4e0;--code:#f1efe8;--bar:#0b6e6e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "Geeza Pro","Noto Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif}
+header{display:flex;align-items:center;gap:12px;padding:14px 28px;background:var(--card);border-bottom:1px solid var(--line)}
+header h1{font-size:19px;margin:0;flex:1}
+.badge{font-size:12px;padding:3px 10px;border-radius:99px;background:var(--accent-soft);color:var(--accent);border:1px solid #b9dcda;white-space:nowrap}
+.badge.warn{background:var(--warn-soft);color:var(--warn);border-color:#f0d9a8}
+button{font:inherit;cursor:pointer}
+.lang{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:4px 12px;color:var(--ink)}
+main{display:grid;grid-template-columns:300px 1fr;gap:24px;max-width:1240px;margin:0 auto;padding:24px 28px}
+aside h2{font-size:13px;color:var(--muted);margin:0 0 10px;font-weight:600}
+.chips{display:flex;flex-direction:column;gap:8px}
+.chip{text-align:start;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 12px;color:var(--ink);font-size:14px}
+.chip:hover{border-color:var(--accent);background:var(--accent-soft)}
+form{display:flex;gap:10px;margin-bottom:18px}
+input{flex:1;font:inherit;font-size:17px;padding:13px 16px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink)}
+input:focus{outline:2px solid var(--accent);border-color:transparent}
+.go{background:var(--accent);color:#fff;border:0;border-radius:12px;padding:0 24px;font-weight:600}
+.go:disabled{opacity:.6}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:18px}
+.q{font-size:13px;color:var(--muted);margin-bottom:6px}
+.ans{font-size:19px;font-weight:600;margin:0 0 16px;line-height:1.6}
+.err{color:var(--warn);background:var(--warn-soft);border-radius:10px;padding:10px 14px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start}
+.cols.one{grid-template-columns:1fr}
+h3{font-size:12px;color:var(--muted);margin:0 0 8px;font-weight:600;letter-spacing:.02em}
+.bars{display:grid;gap:7px}
+.bar-row{display:grid;grid-template-columns:minmax(80px,38%) 1fr auto;gap:8px;align-items:center;font-size:13px}
+.bar-row .l{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track{background:var(--code);border-radius:6px;height:16px}
+.fill{background:var(--bar);height:100%;border-radius:6px}
+.bar-row .v{font-variant-numeric:tabular-nums;color:var(--muted);direction:ltr}
+.tablewrap{max-height:300px;overflow:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{position:sticky;top:0;background:var(--code);text-align:start;padding:7px 10px;font-weight:600;white-space:nowrap}
+td{padding:6px 10px;border-top:1px solid var(--line)}
+td.n{font-variant-numeric:tabular-nums;text-align:end;direction:ltr}
+.sql{margin-top:16px}
+pre{direction:ltr;text-align:left;margin:0;background:var(--code);border-radius:10px;padding:12px 14px;font:12.5px/1.55 ui-monospace,Menlo,Consolas,monospace;white-space:pre-wrap;color:#27333f}
+.k{color:#0b5a8f;font-weight:600}
+.meta{margin-top:8px;font-size:12px;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}
+.meta b{color:var(--ink);font-weight:600}
+.copy{float:inline-end;border:0;background:none;color:var(--accent);font-size:12px;padding:0}
+.empty{color:var(--muted);text-align:center;padding:60px 20px}
+@media(max-width:860px){main{grid-template-columns:1fr;padding:16px}.cols{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="t-title"></h1>
+  <span class="badge" id="mode"></span>
+  <span class="badge" id="ro"></span>
+  <button class="lang" id="lang"></button>
+</header>
+<main>
+  <aside><h2 id="t-try"></h2><div class="chips" id="chips"></div></aside>
+  <section>
+    <form id="f"><input id="q" autocomplete="off" autofocus><button class="go" id="go"></button></form>
+    <div id="out"><div class="empty" id="empty"></div></div>
+  </section>
+</main>
+<script>
+const S={ar:{title:"اسأل نظام الـ ERP",try:"جرّب أحد هذه الأسئلة",ph:"اكتب سؤالك بالعربية أو الإنجليزية...",go:"اسأل",ro:"قراءة فقط",empty:"اسأل عن المخزون أو الفواتير أو أوامر الشراء أو الذمم المدينة.",
+  llm:"وضع الذكاء الاصطناعي",canned:"وضع العرض",chart:"الرسم البياني",table:"الجدول",sql:"الاستعلام المنفّذ (SELECT فقط)",src:"المصادر",rows:"صفوف",asof:"بيانات حتى",copy:"نسخ",busy:"جارٍ التحليل...",other:"English"},
+ en:{title:"Talk to your ERP",try:"Try one of these",ph:"Ask in Arabic or English...",go:"Ask",ro:"Read-only",empty:"Ask about stock, invoices, purchase orders or receivables.",
+  llm:"AI mode",canned:"Demo mode",chart:"Chart",table:"Table",sql:"Executed query (SELECT only)",src:"Sources",rows:"rows",asof:"Data as of",copy:"Copy",busy:"Analysing...",other:"العربية"}};
+const COL_AR={warehouse:"المستودع",sku:"الرمز",item:"الصنف",qty_on_hand:"الكمية",reorder_level:"حد الطلب",shortfall:"النقص",units:"الوحدات",stock_value_usd:"قيمة المخزون (دولار)",
+ customer:"العميل",country:"الدولة",invoices:"الفواتير",revenue:"الإيرادات",revenue_usd:"الإيرادات (دولار)",month:"الشهر",sales:"المبيعات",sales_usd:"المبيعات (دولار)",currency:"العملة",
+ bucket:"الفئة (أيام)",outstanding:"المستحق",outstanding_usd:"المستحق (دولار)",invoice_no:"رقم الفاتورة",days_overdue:"أيام التأخير",open_invoices:"فواتير مفتوحة",supplier:"المورد",
+ open_pos:"أوامر مفتوحة",value_usd:"القيمة (دولار)",po_no:"أمر الشراء",expected_date:"التاريخ المتوقع",days_late:"أيام التأخير",total_amount:"الإجمالي",due_date:"تاريخ الاستحقاق",
+ units_sold:"الوحدات المباعة",pos:"أوامر الشراء",spend_usd:"الإنفاق (دولار)"};
+let L=(new URLSearchParams(location.search).get("lang")||"ar"), info={mode:"canned",samples:[]};
+const $=id=>document.getElementById(id), esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const num=v=>typeof v==="number"?v.toLocaleString("en-US",{maximumFractionDigits:3}):esc(v);
+function ui(){const t=S[L];document.documentElement.lang=L;document.documentElement.dir=L==="ar"?"rtl":"ltr";
+ $("t-title").textContent=t.title;$("t-try").textContent=t.try;$("q").placeholder=t.ph;$("go").textContent=t.go;$("ro").textContent=t.ro;$("empty")&&($("empty").textContent=t.empty);
+ $("mode").textContent=t[info.mode];$("mode").className="badge"+(info.mode==="canned"?" warn":"");$("lang").textContent=t.other;
+ $("chips").innerHTML=info.samples.map(s=>`<button class="chip" data-q="${esc(s[L])}">${esc(s[L])}</button>`).join("");}
+const kw=/\b(SELECT|FROM|JOIN|ON|WHERE|GROUP BY|ORDER BY|LIMIT|AS|AND|OR|IN|WITH|CASE|WHEN|THEN|ELSE|END|DESC|ASC|COUNT|SUM|ROUND|CAST|COALESCE)\b/g;
+function bars(c){const max=Math.max(...c.values.map(Math.abs))||1;
+ return `<div class="bars">`+c.labels.map((l,i)=>`<div class="bar-row"><span class="l" title="${esc(l)}">${esc(l)}</span><div class="track"><div class="fill" style="width:${Math.max(2,Math.abs(c.values[i])/max*100)}%"></div></div><span class="v">${num(c.values[i])}</span></div>`).join("")+`</div>`;}
+function line(c){const W=480,H=230,p=34,v=c.values,max=Math.max(...v)*1.1,min=0,x=i=>p+i*(W-2*p)/(v.length-1),y=a=>H-24-(a-min)/(max-min)*(H-44);
+ const pts=v.map((a,i)=>`${x(i)},${y(a)}`).join(" ");
+ return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;direction:ltr" role="img"><polyline points="${pts}" fill="none" stroke="#0b6e6e" stroke-width="2.5"/>`+
+  v.map((a,i)=>`<circle cx="${x(i)}" cy="${y(a)}" r="3.5" fill="#0b6e6e"/>`).join("")+
+  c.labels.map((l,i)=>i%2===0?`<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="13" fill="#5b6675">${esc(l.slice(2))}</text>`:"").join("")+
+  `<text x="${p}" y="12" font-size="13" fill="#5b6675">${num(Math.round(max/1.1))}</text></svg>`;}
+function card(r){const t=S[L],rtl=r.language==="ar",lbl=c=>rtl&&COL_AR[c]?COL_AR[c]:c;
+ if(r.error)return `<div class="card" dir="${rtl?"rtl":"ltr"}"><div class="q">${esc(r.question)}</div><div class="err">${esc(r.error)}</div></div>`;
+ const tbl=`<div class="tablewrap"><table><thead><tr>${r.columns.map(c=>`<th>${esc(lbl(c))}</th>`).join("")}</tr></thead><tbody>${r.rows.map(row=>`<tr>${row.map(v=>`<td class="${typeof v==="number"?"n":""}">${num(v)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+ const ch=r.chart?(r.chart.type==="line"?line(r.chart):bars(r.chart)):"";
+ const sql=esc(r.sql).replace(kw,'<span class="k">$1</span>');
+ return `<div class="card" dir="${rtl?"rtl":"ltr"}"><div class="q">${esc(r.question)}</div><p class="ans">${esc(r.answer)}</p>
+ <div class="cols ${ch?"":"one"}">${ch?`<div><h3>${rtl?S.ar.chart:S.en.chart}</h3>${ch}</div>`:""}<div><h3>${rtl?S.ar.table:S.en.table}</h3>${tbl}</div></div>
+ <div class="sql"><h3>${rtl?S.ar.sql:S.en.sql} <button class="copy" data-sql="${esc(r.sql)}">${rtl?S.ar.copy:S.en.copy}</button></h3><pre>${sql}</pre>
+ <div class="meta"><span>${rtl?S.ar.src:S.en.src}: <b>${esc(r.sources.join(", "))}</b></span><span><b>${r.rows.length}</b> ${rtl?S.ar.rows:S.en.rows}${r.truncated?" (max)":""}</span><span>${rtl?S.ar.asof:S.en.asof} <b dir="ltr">${esc(r.as_of)}</b></span>${r.warning?`<span>${esc(r.warning)}</span>`:""}</div></div></div>`;}
+async function ask(q){q=q.trim();if(!q)return;$("q").value=q;$("go").disabled=true;$("go").textContent=S[L].busy;
+ try{const r=await (await fetch("/api/ask",{method:"POST",body:JSON.stringify({question:q})})).json();
+  const e=$("empty");e&&e.remove();$("out").insertAdjacentHTML("afterbegin",card(r));
+ }catch(x){$("out").insertAdjacentHTML("afterbegin",`<div class="card"><div class="err">${esc(x)}</div></div>`)}
+ $("go").disabled=false;$("go").textContent=S[L].go;}
+$("f").onsubmit=e=>{e.preventDefault();ask($("q").value)};
+$("lang").onclick=()=>{L=L==="ar"?"en":"ar";ui()};
+document.addEventListener("click",e=>{const c=e.target.closest(".chip");if(c)ask(c.dataset.q);const b=e.target.closest(".copy");if(b)navigator.clipboard&&navigator.clipboard.writeText(b.dataset.sql)});
+fetch("/api/samples").then(r=>r.json()).then(d=>{info=d;ui();const q=new URLSearchParams(location.search).get("q");if(q)ask(q)});
+ui();
+</script>
+</body>
+</html>

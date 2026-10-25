@@ -1,0 +1,9 @@
+=== SQL QUESTIONS (Structured Data) ===
+1. Which items are below their reorder level, by warehouse?
+2. Who are our top 5 customers in Kuwait by invoiced revenue?
+3. Show the receivables ageing buckets and the total outstanding in USD equivalent (use fx_rates).
+4. Which purchase orders are past their expected date and still open?
+5. Show monthly sales for the last 12 months in USD equivalent.
+6. اعرض أعمار الديون
+7. أي فواتير متأخرة أكثر من ٦٠ يوم؟
+8. شنو الأصناف اللي خلصت من المخزون؟
