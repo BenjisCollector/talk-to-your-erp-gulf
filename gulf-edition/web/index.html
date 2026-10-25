@@ -98,9 +98,11 @@ function line(c){const W=480,H=230,p=34,v=c.values,max=Math.max(...v)*1.1,min=0,
   v.map((a,i)=>`<circle cx="${x(i)}" cy="${y(a)}" r="3.5" fill="#0b6e6e"/>`).join("")+
   c.labels.map((l,i)=>i%2===0?`<text x="${x(i)}" y="${H-6}" text-anchor="middle" font-size="13" fill="#5b6675">${esc(l.slice(2))}</text>`:"").join("")+
   `<text x="${p}" y="12" font-size="13" fill="#5b6675">${num(Math.round(max/1.1))}</text></svg>`;}
-function donut(c){const tot=c.values.reduce((a,b)=>a+Math.abs(b),0)||1,R=62,C=2*Math.PI*R,big=c.values.indexOf(Math.max(...c.values)),sh=["#0b6e6e","#4a9a98","#8fc2c0","#c6dedd","#e4dfd3"];let off=0;
- const arcs=c.values.map((a,i)=>{const d=Math.abs(a)/tot*C,o=off;off+=d;return `<circle cx="80" cy="80" r="${R}" fill="none" stroke="${i===big?"#F07A1F":sh[i%sh.length]}" stroke-width="26" stroke-dasharray="${d} ${C-d}" stroke-dashoffset="${-o}" transform="rotate(-90 80 80)"/>`}).join("");
- const leg=c.labels.map((l,i)=>`<div class="lg"><i style="background:${i===big?"#F07A1F":sh[i%sh.length]}"></i><span class="l">${esc(l)}</span><span class="v">${Math.round(Math.abs(c.values[i])/tot*100)}%</span></div>`).join("");
+function donut(c){const tot=c.values.reduce((a,b)=>a+Math.abs(b),0)||1,R=62,C=2*Math.PI*R,last=c.values.reduce((m,a,i)=>a?i:m,0),warm=["#fbe3cc","#f8cfa8","#f5b47a"];let off=0;
+ // slices run current -> oldest: first is calm teal, oldest non-empty is the orange "needs attention" accent, those between get lighter warm tints
+ const col=i=>i===last?"#F07A1F":i===0?"#0b6e6e":warm[Math.min(i-1,warm.length-1)];
+ const arcs=c.values.map((a,i)=>{const d=Math.abs(a)/tot*C,o=off;off+=d;return `<circle cx="80" cy="80" r="${R}" fill="none" stroke="${col(i)}" stroke-width="26" stroke-dasharray="${d} ${C-d}" stroke-dashoffset="${-o}" transform="rotate(-90 80 80)"/>`}).join("");
+ const leg=c.labels.map((l,i)=>`<div class="lg"><i style="background:${col(i)}"></i><span class="l">${esc(l)}</span><span class="v">${Math.round(Math.abs(c.values[i])/tot*100)}%</span></div>`).join("");
  return `<div class="donut"><svg viewBox="0 0 160 160" role="img">${arcs}<text x="80" y="86" text-anchor="middle" font-size="18" font-weight="600" fill="#1d2a3a" direction="ltr">${num(Math.round(tot))}</text></svg><div class="legend">${leg}</div></div>`;}
 function card(r){const t=S[L],rtl=r.language==="ar",lbl=c=>rtl&&COL_AR[c]?COL_AR[c]:c;
  if(r.error)return `<div class="card" dir="${rtl?"rtl":"ltr"}"><div class="q">${esc(r.question)}</div><div class="err">${esc(r.error)}</div></div>`;
