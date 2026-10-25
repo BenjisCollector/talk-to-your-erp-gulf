@@ -1,0 +1,39 @@
+%%{init: {"theme":"base","themeVariables":{"fontFamily":"Helvetica, Arial, sans-serif","fontSize":"19px","lineColor":"#1B2D52"},"flowchart":{"htmlLabels":true,"nodeSpacing":40,"rankSpacing":55}}}%%
+flowchart LR
+  subgraph B["Manager's browser"]
+    UI["RTL / LTR web UI<br/>Arabic first"]
+  end
+  subgraph L["Local demo: python3 or docker compose (no Azure)"]
+    API["HTTP API<br/>POST /api/ask"]
+    LANG["Language and Gulf dialect<br/>normaliser"]
+    LLM["LLM mode<br/>OpenAI-compatible or<br/>Azure OpenAI, if a key is set"]
+    CAN["Canned mode<br/>15 intents, deterministic,<br/>no key needed"]
+    GUARD["Read-only SQL guard<br/>SELECT only, allow-list,<br/>row cap, authorizer"]
+    DB[("Gulf ERP sample data<br/>SQLite, read-only<br/>KWD, QAR, SAR")]
+    OUT["Answer builder<br/>text, table, chart,<br/>SQL and sources"]
+  end
+  subgraph A["Optional Azure path (Microsoft template, needs a subscription)"]
+    FA["Foundry agent +<br/>Agent Framework"]
+    FD["Fabric SQL database<br/>scenario pack gulf_erp"]
+  end
+  UI -->|1| API --> LANG
+  LANG -->|2| LLM
+  LANG -->|2| CAN
+  LLM -->|3| GUARD
+  CAN -->|3| GUARD
+  GUARD -->|4| DB
+  DB -->|5| OUT
+  OUT -->|6| UI
+  UI -.->|A| FA
+  FA -.->|B| FD
+  classDef ext fill:#FFF4E0,color:#1B2D52,stroke:#E0A030,stroke-width:1.5px
+  classDef app fill:#EEF2F8,color:#1B2D52,stroke:#1B2D52,stroke-width:1.5px
+  classDef ing fill:#E6F4FB,color:#1B2D52,stroke:#159BD7,stroke-width:1.5px
+  classDef ok fill:#E8F5EC,color:#1B2D52,stroke:#2E8B57,stroke-width:1.5px
+  class UI ing
+  class API,LANG,LLM,CAN,OUT app
+  class GUARD,DB ok
+  class FA,FD ext
+  style B fill:#FFFFFF,stroke:#159BD7,color:#1B2D52
+  style L fill:#FFFFFF,stroke:#1B2D52,color:#1B2D52
+  style A fill:#FFFFFF,stroke:#E0A030,color:#1B2D52

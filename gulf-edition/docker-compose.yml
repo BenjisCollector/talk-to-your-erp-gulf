@@ -1,0 +1,15 @@
+# docker compose up  ->  http://localhost:8080
+# No key set: deterministic demo answers. Export OPENAI_API_KEY (or AZURE_OPENAI_*) first to use a real model.
+services:
+  erp:
+    build: .
+    ports: ["8080:8080"]
+    environment:
+      - OPENAI_API_KEY
+      - OPENAI_BASE_URL
+      - OPENAI_MODEL
+      - AZURE_OPENAI_ENDPOINT
+      - AZURE_OPENAI_API_KEY
+      - AZURE_OPENAI_DEPLOYMENT
+      - AZURE_OPENAI_API_VERSION
+      - DEMO_MODE

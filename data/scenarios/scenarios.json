@@ -31,5 +31,16 @@
         "landing_text": "You can ask questions around sales, products and orders.",
         "app_title": "Contoso",
         "app_header": "| Unified Data Analysis Agents"
+    },
+    "gulf_erp": {
+        "folder": "data/scenarios/gulf_erp",
+        "industry": "Distribution (Gulf)",
+        "usecase": "ERP questions in Arabic and English: stock, invoices, purchase orders, receivables",
+        "data_size": "small",
+        "type": "prebuilt",
+        "description": "Synthetic Gulf ERP data (KWD, QAR, SAR) with bilingual item, customer and supplier names. All company names are invented.",
+        "landing_text": "اسأل عن المخزون أو الفواتير أو أوامر الشراء أو الذمم المدينة. Ask about stock, invoices, purchase orders or receivables.",
+        "app_title": "Gulf ERP",
+        "app_header": "| Talk to your ERP"
     }
 }

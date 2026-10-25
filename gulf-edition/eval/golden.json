@@ -1,0 +1,115 @@
+[
+ {
+  "question": "Which items are below reorder level?",
+  "gold_sql": "SELECT (SELECT name_{L} FROM warehouses WHERE warehouse_id=s.warehouse_id), i.sku, i.name_{L}, s.qty_on_hand, i.reorder_level, i.reorder_level-s.qty_on_hand FROM stock_levels s, items i WHERE i.item_id=s.item_id AND s.qty_on_hand<i.reorder_level",
+  "id": 1
+ },
+ {
+  "question": "شنو الأصناف اللي خلصت من المخزون؟",
+  "gold_sql": "SELECT (SELECT name_{L} FROM warehouses WHERE warehouse_id=s.warehouse_id), i.sku, i.name_{L}, s.qty_on_hand, i.reorder_level, i.reorder_level-s.qty_on_hand FROM stock_levels s, items i WHERE i.item_id=s.item_id AND s.qty_on_hand<i.reorder_level",
+  "tag": "gulf-dialect",
+  "id": 2
+ },
+ {
+  "question": "What is our stock value by warehouse?",
+  "gold_sql": "SELECT w.name_{L}, (SELECT SUM(qty_on_hand) FROM stock_levels WHERE warehouse_id=w.warehouse_id), ROUND((SELECT SUM(s.qty_on_hand*i.unit_cost_usd) FROM stock_levels s JOIN items i USING(item_id) WHERE s.warehouse_id=w.warehouse_id),0) FROM warehouses w",
+  "id": 3
+ },
+ {
+  "question": "كم قيمة المخزون في كل مستودع؟",
+  "gold_sql": "SELECT w.name_{L}, (SELECT SUM(qty_on_hand) FROM stock_levels WHERE warehouse_id=w.warehouse_id), ROUND((SELECT SUM(s.qty_on_hand*i.unit_cost_usd) FROM stock_levels s JOIN items i USING(item_id) WHERE s.warehouse_id=w.warehouse_id),0) FROM warehouses w",
+  "id": 4
+ },
+ {
+  "question": "Who are our top 5 customers in Kuwait?",
+  "gold_sql": "SELECT c.name_{L}, c.country, COUNT(*), ROUND(SUM(i.total_amount),2) FROM customers c JOIN invoices i USING(customer_id) WHERE c.currency='KWD' GROUP BY c.customer_id ORDER BY SUM(i.total_amount) DESC LIMIT 5",
+  "ordered": true,
+  "id": 5
+ },
+ {
+  "question": "وريني أكبر ٥ عملاء بالكويت",
+  "gold_sql": "SELECT c.name_{L}, c.country, COUNT(*), ROUND(SUM(i.total_amount),2) FROM customers c JOIN invoices i USING(customer_id) WHERE c.currency='KWD' GROUP BY c.customer_id ORDER BY SUM(i.total_amount) DESC LIMIT 5",
+  "ordered": true,
+  "tag": "gulf-dialect",
+  "id": 6
+ },
+ {
+  "question": "Top 3 customers in Qatar",
+  "gold_sql": "SELECT c.name_{L}, c.country, COUNT(*), ROUND(SUM(i.total_amount),2) FROM customers c JOIN invoices i USING(customer_id) WHERE c.currency='QAR' GROUP BY c.customer_id ORDER BY SUM(i.total_amount) DESC LIMIT 3",
+  "ordered": true,
+  "id": 7
+ },
+ {
+  "question": "Show monthly sales for the last 12 months",
+  "gold_sql": "SELECT substr(invoice_date,1,7), COUNT(*), ROUND(SUM(total_amount*(SELECT usd_per_unit FROM fx_rates r WHERE r.currency=invoices.currency)),0) FROM invoices GROUP BY 1 ORDER BY 1",
+  "ordered": true,
+  "id": 8
+ },
+ {
+  "question": "اعرض المبيعات الشهرية لآخر ١٢ شهر",
+  "gold_sql": "SELECT substr(invoice_date,1,7), COUNT(*), ROUND(SUM(total_amount*(SELECT usd_per_unit FROM fx_rates r WHERE r.currency=invoices.currency)),0) FROM invoices GROUP BY 1 ORDER BY 1",
+  "ordered": true,
+  "id": 9
+ },
+ {
+  "question": "شكثر مبيعاتنا هالشهر؟",
+  "gold_sql": "SELECT currency, COUNT(*), ROUND(SUM(total_amount),3) FROM invoices WHERE substr(invoice_date,1,7)='2026-09' GROUP BY currency",
+  "tag": "gulf-dialect",
+  "id": 10
+ },
+ {
+  "question": "How much did we sell this month?",
+  "gold_sql": "SELECT currency, COUNT(*), ROUND(SUM(total_amount),3) FROM invoices WHERE substr(invoice_date,1,7)='2026-09' GROUP BY currency",
+  "id": 11
+ },
+ {
+  "question": "Show the receivables ageing in Saudi Arabia",
+  "gold_sql": "SELECT bucket, COUNT(*), ROUND(SUM(outstanding),0) FROM receivables_ageing WHERE currency='SAR' GROUP BY bucket",
+  "id": 12
+ },
+ {
+  "question": "اعرض أعمار الديون",
+  "gold_sql": "SELECT bucket, COUNT(*), ROUND(SUM(outstanding*(SELECT usd_per_unit FROM fx_rates WHERE currency=receivables_ageing.currency)),0) FROM receivables_ageing GROUP BY bucket",
+  "id": 13
+ },
+ {
+  "question": "Which invoices are more than 60 days overdue?",
+  "gold_sql": "SELECT invoice_no, customer_name, currency, outstanding, days_overdue FROM receivables_ageing WHERE days_overdue>60 ORDER BY outstanding*(SELECT usd_per_unit FROM fx_rates WHERE currency=receivables_ageing.currency) DESC LIMIT 10",
+  "ordered": true,
+  "id": 14
+ },
+ {
+  "question": "أي فواتير متأخرة أكثر من ٦٠ يوم؟",
+  "gold_sql": "SELECT invoice_no, customer_name_ar, currency, outstanding, days_overdue FROM receivables_ageing WHERE days_overdue>60 ORDER BY outstanding*(SELECT usd_per_unit FROM fx_rates WHERE currency=receivables_ageing.currency) DESC LIMIT 10",
+  "ordered": true,
+  "id": 15
+ },
+ {
+  "question": "Which customers owe us the most?",
+  "gold_sql": "SELECT customer_name, COUNT(*), ROUND(SUM(outstanding*(SELECT usd_per_unit FROM fx_rates WHERE currency=receivables_ageing.currency)),0) FROM receivables_ageing GROUP BY customer_id ORDER BY 3 DESC LIMIT 5",
+  "ordered": true,
+  "id": 16
+ },
+ {
+  "question": "من أكثر العملاء مديونية علينا؟",
+  "gold_sql": "SELECT customer_name_ar, COUNT(*), ROUND(SUM(outstanding*(SELECT usd_per_unit FROM fx_rates WHERE currency=receivables_ageing.currency)),0) FROM receivables_ageing GROUP BY customer_id ORDER BY 3 DESC LIMIT 5",
+  "ordered": true,
+  "id": 17
+ },
+ {
+  "question": "What open purchase orders do we have?",
+  "gold_sql": "SELECT s.name_{L}, COUNT(*), ROUND(SUM(po.total_amount*(SELECT usd_per_unit FROM fx_rates WHERE currency=po.currency)),0) FROM purchase_orders po, suppliers s WHERE s.supplier_id=po.supplier_id AND po.status IN ('open','partial') GROUP BY s.supplier_id ORDER BY 3 DESC",
+  "id": 18
+ },
+ {
+  "question": "أي أوامر شراء متأخرة عن موعد التوريد؟",
+  "gold_sql": "SELECT po.po_no, s.name_{L}, po.expected_date, CAST(julianday('2026-09-30')-julianday(po.expected_date) AS INTEGER), po.currency, po.total_amount FROM purchase_orders po JOIN suppliers s USING(supplier_id) WHERE po.status IN ('open','partial') AND po.expected_date<'2026-09-30' ORDER BY 4 DESC LIMIT 15",
+  "ordered": true,
+  "id": 19
+ },
+ {
+  "question": "How many Safety Helmet do we have?",
+  "gold_sql": "SELECT w.name_{L}, s.qty_on_hand, i.reorder_level FROM items i JOIN stock_levels s USING(item_id) JOIN warehouses w USING(warehouse_id) WHERE i.name_en='Safety Helmet'",
+  "id": 20
+ }
+]

@@ -1,0 +1,49 @@
+item_id,sku,name_en,name_ar,category,category_ar,unit_cost_usd,list_price_usd,reorder_level
+1,CAB-001,Copper Cable 2.5mm 100m,كيبل نحاس 2.5 مم 100م,Cables,الكابلات,38.88,58.0,60
+2,CAB-002,Copper Cable 4mm 100m,كيبل نحاس 4 مم 100م,Cables,الكابلات,65.78,92.0,15
+3,CAB-003,Copper Cable 6mm 100m,كيبل نحاس 6 مم 100م,Cables,الكابلات,97.77,138.0,60
+4,CAB-004,Armoured Cable 4x16mm 50m,كيبل مدرع 4x16 مم 50م,Cables,الكابلات,311.02,410.0,40
+5,CAB-005,Fibre Optic Cable 12 core 500m,كيبل ألياف ضوئية 12 خيط 500م,Cables,الكابلات,480.75,640.0,20
+6,CAB-006,Flexible Cable 3x1.5mm 100m,كيبل مرن 3x1.5 مم 100م,Cables,الكابلات,53.37,74.0,60
+7,LIG-007,LED Panel 60x60 40W,لوحة إضاءة LED 60x60 40 واط,Lighting,الإضاءة,16.1,24.0,60
+8,LIG-008,LED Floodlight 100W,كشاف LED 100 واط,Lighting,الإضاءة,34.71,46.0,60
+9,LIG-009,LED Street Light 150W,إنارة شوارع LED 150 واط,Lighting,الإضاءة,107.16,138.0,30
+10,LIG-010,Emergency Exit Light,إضاءة مخرج طوارئ,Lighting,الإضاءة,11.96,19.0,15
+11,LIG-011,LED Tube 18W,أنبوب LED 18 واط,Lighting,الإضاءة,3.28,4.5,15
+12,LIG-012,High Bay Light 200W,إنارة عالية 200 واط,Lighting,الإضاءة,86.06,112.0,30
+13,PUM-013,Centrifugal Pump 5HP,مضخة طاردة مركزية 5 حصان,Pumps,المضخات,571.87,780.0,20
+14,PUM-014,Submersible Pump 3HP,مضخة غاطسة 3 حصان,Pumps,المضخات,401.52,520.0,15
+15,PUM-015,Booster Pump Set 7.5HP,مجموعة مضخة رفع الضغط 7.5 حصان,Pumps,المضخات,1029.29,1450.0,20
+16,PUM-016,Water Transfer Pump 2HP,مضخة نقل مياه 2 حصان,Pumps,المضخات,209.25,310.0,15
+17,PUM-017,Fire Jockey Pump,مضخة حريق مساندة,Pumps,المضخات,1346.31,1980.0,30
+18,PUM-018,Sump Pump 1HP,مضخة تصريف 1 حصان,Pumps,المضخات,176.87,245.0,40
+19,HVA-019,Split AC 2 Ton,مكيف سبليت 2 طن,HVAC,التكييف,479.89,640.0,60
+20,HVA-020,Split AC 3 Ton,مكيف سبليت 3 طن,HVAC,التكييف,634.47,890.0,15
+21,HVA-021,Ducted Unit 10 Ton,وحدة مجاري هواء 10 طن,HVAC,التكييف,2710.37,4200.0,30
+22,HVA-022,Chilled Water Fan Coil,وحدة مروحة مياه مبردة,HVAC,التكييف,244.95,380.0,10
+23,HVA-023,Air Filter Pack G4,عبوة فلاتر هواء G4,HVAC,التكييف,27.79,36.0,40
+24,HVA-024,Thermostat Digital,ثرموستات رقمي,HVAC,التكييف,30.76,42.0,10
+25,SAF-025,Safety Helmet,خوذة سلامة,Safety,السلامة,5.42,7.5,10
+26,SAF-026,Safety Boots Steel Toe,حذاء سلامة مقدمة فولاذية,Safety,السلامة,20.7,31.0,40
+27,SAF-027,Fire Extinguisher 6kg,طفاية حريق 6 كجم,Safety,السلامة,28.0,38.0,15
+28,SAF-028,High Visibility Vest,سترة عاكسة,Safety,السلامة,3.08,4.2,10
+29,SAF-029,Safety Goggles,نظارات سلامة,Safety,السلامة,2.42,3.1,10
+30,SAF-030,First Aid Kit Industrial,حقيبة إسعافات أولية صناعية,Safety,السلامة,38.79,55.0,60
+31,TOO-031,Cordless Drill 18V,مثقاب لاسلكي 18 فولت,Tools,الأدوات,68.47,96.0,40
+32,TOO-032,Angle Grinder 125mm,صاروخ جلخ 125 مم,Tools,الأدوات,40.14,64.0,30
+33,TOO-033,Torque Wrench Set,طقم مفتاح عزم,Tools,الأدوات,119.16,175.0,40
+34,TOO-034,Tool Cabinet 7 Drawer,خزانة أدوات 7 أدراج,Tools,الأدوات,194.98,260.0,60
+35,TOO-035,Laser Distance Meter,جهاز قياس مسافة ليزر,Tools,الأدوات,56.79,88.0,40
+36,TOO-036,Welding Machine 250A,ماكينة لحام 250 أمبير,Tools,الأدوات,273.82,430.0,15
+37,ELE-037,Circuit Breaker 63A,قاطع كهربائي 63 أمبير,Electrical,الكهرباء,21.38,29.0,20
+38,ELE-038,Distribution Board 24 Way,لوحة توزيع 24 فتحة,Electrical,الكهرباء,148.6,210.0,20
+39,ELE-039,Contactor 40A,كونتاكتور 40 أمبير,Electrical,الكهرباء,29.45,47.0,40
+40,ELE-040,Socket Outlet Twin,مأخذ كهرباء مزدوج,Electrical,الكهرباء,4.21,5.8,15
+41,ELE-041,UPS 3kVA,مصدر طاقة احتياطي 3 كيلو فولت أمبير,Electrical,الكهرباء,445.71,690.0,20
+42,ELE-042,Generator 100kVA,مولد 100 كيلو فولت أمبير,Electrical,الكهرباء,6539.02,9800.0,20
+43,PIP-043,PVC Pipe 110mm 6m,أنبوب PVC 110 مم 6م,Piping,الأنابيب,11.51,17.0,30
+44,PIP-044,HDPE Pipe 200mm 12m,أنبوب HDPE 200 مم 12م,Piping,الأنابيب,96.23,148.0,60
+45,PIP-045,Ball Valve 2 inch,محبس كروي 2 إنش,Piping,الأنابيب,15.86,22.0,40
+46,PIP-046,Gate Valve 4 inch,محبس بوابة 4 إنش,Piping,الأنابيب,55.0,76.0,30
+47,PIP-047,Pipe Fitting Kit,طقم وصلات أنابيب,Piping,الأنابيب,22.34,33.0,40
+48,PIP-048,Flange Set DN100,طقم شفة DN100,Piping,الأنابيب,26.54,41.0,40
